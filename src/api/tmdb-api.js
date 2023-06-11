@@ -88,8 +88,13 @@ export const getUpcomingMovies = () => {
       import.meta.env.VITE_TMDB_KEY
     }&language=en-US&page=1`
   )
-    .then((res) => res.json())
-    .then((json) => {
-      return json.results;
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(response.json().message);
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      throw error;
     });
 };
