@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import AddToFavouritesIcon from "../components/cardIcons/addToFavourites";
+import AddToMustWatchListIcon from "../components/cardIcons/addToMustWatchList";
 import PageTemplate from "../components/templateMovieListPage";
 import { getUpcomingMovies } from "../api/tmdb-api";
 
@@ -17,8 +17,8 @@ const UpcomingMoviesPage = (props) => {
     <PageTemplate
       title="Upcoming Movies"
       movies={movies}
-      action={(movie) => {
-        return <AddToFavouritesIcon movie={movie} />;
+      action={() => {
+        return <AddToMustWatchListIcon />;
       }}
     />
   );
