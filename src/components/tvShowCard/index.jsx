@@ -17,8 +17,6 @@ const styles = {
 };
 
 export default function TvShowCard({ tvShow }) {
-  console.log(tvShow);
-
   return (
     <Card sx={styles.card}>
       <CardMedia
