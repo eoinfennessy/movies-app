@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
 import { useQuery } from "react-query";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
@@ -125,6 +127,31 @@ const MyFantasyMovieForm = () => {
             </Select>
           )}
         />
+        {errors.genres && (
+          <Typography variant="h6" component="p">
+            {errors.genres.message}
+          </Typography>
+        )}
+
+        <InputLabel id="date-picker-label">Release Date</InputLabel>
+        <Controller
+          control={control}
+          name="releaseDate"
+          rules={{ required: "Release date is required" }}
+          render={({ field }) => (
+            <DatePicker
+              labelId="date-picker-label"
+              placeholderText="Select date"
+              onChange={(date) => field.onChange(date)}
+              selected={field.value}
+            />
+          )}
+        />
+        {errors.releaseDate && (
+          <Typography variant="h6" component="p">
+            {errors.releaseDate.message}
+          </Typography>
+        )}
 
         <Box>
           <Button type="submit" variant="contained" color="primary">
