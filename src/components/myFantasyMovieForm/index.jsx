@@ -133,23 +133,49 @@ const MyFantasyMovieForm = () => {
           </Typography>
         )}
 
-        <InputLabel id="date-picker-label">Release Date</InputLabel>
+        <div>
+          <InputLabel id="date-picker-label">Release Date</InputLabel>
+          <Controller
+            control={control}
+            name="releaseDate"
+            rules={{ required: "Release date is required" }}
+            render={({ field }) => (
+              <DatePicker
+                labelId="date-picker-label"
+                placeholderText="Select date"
+                onChange={(date) => field.onChange(date)}
+                selected={field.value}
+              />
+            )}
+          />
+          {errors.releaseDate && (
+            <Typography variant="h6" component="p">
+              {errors.releaseDate.message}
+            </Typography>
+          )}
+        </div>
+
         <Controller
+          name="runtime"
           control={control}
-          name="releaseDate"
-          rules={{ required: "Release date is required" }}
-          render={({ field }) => (
-            <DatePicker
-              labelId="date-picker-label"
-              placeholderText="Select date"
-              onChange={(date) => field.onChange(date)}
-              selected={field.value}
+          rules={{ required: "Runtime is required" }}
+          defaultValue={0}
+          render={({ field: { onChange, value } }) => (
+            <TextField
+              variant="outlined"
+              type="number"
+              margin="normal"
+              required
+              onChange={onChange}
+              value={value}
+              id="runtime"
+              label="Movie runtime"
             />
           )}
         />
-        {errors.releaseDate && (
+        {errors.runtime && (
           <Typography variant="h6" component="p">
-            {errors.releaseDate.message}
+            {errors.runtime.message}
           </Typography>
         )}
 
