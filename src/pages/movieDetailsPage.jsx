@@ -4,32 +4,30 @@ import { useQuery } from "react-query";
 import MovieDetails from "../components/movieDetails";
 import PageTemplate from "../components/templateMoviePage";
 import Spinner from "../components/spinner";
-import { getMovie } from "../api/tmdb-api";
+import { getMovie, getMovieCredits } from "../api/tmdb-api";
 
 const MovieDetailsPage = (props) => {
   const { id } = useParams();
 
-  const {
-    data: movie,
-    error,
-    isLoading,
-    isError,
-  } = useQuery(["movie", { id: id }], getMovie);
+  const movieResult = useQuery(["movie", { id: id }], getMovie);
+  const creditsResult = useQuery(["movieCredits", { id: id }], getMovieCredits);
 
-  if (isLoading) {
+  if (movieResult.isLoading | creditsResult.isLoading) {
     return <Spinner />;
   }
 
-  if (isError) {
-    return <h1>{error.message}</h1>;
-  }
+  if (movieResult.isError) return <h1>{movieResult.error.message}</h1>;
+  if (creditsResult.isError) return <h1>{creditsResult.error.message}</h1>;
 
   return (
     <>
-      {movie ? (
+      {movieResult.data ? (
         <>
-          <PageTemplate movie={movie}>
-            <MovieDetails movie={movie} />
+          <PageTemplate movie={movieResult.data}>
+            <MovieDetails
+              movie={movieResult.data}
+              credits={creditsResult.data}
+            />
           </PageTemplate>
         </>
       ) : (

@@ -10,6 +10,9 @@ import NavigationIcon from "@mui/icons-material/Navigation";
 import Fab from "@mui/material/Fab";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from "../movieReviews";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
+import { ExpandMore, People } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 const styles = {
   chipSet: {
@@ -31,8 +34,8 @@ const styles = {
   },
 };
 
-const MovieDetails = ({ movie }) => {
-  const [drawerOpen, setDrawerOpen] = useState(false); // New
+const MovieDetails = ({ movie, credits }) => {
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
     <>
@@ -54,6 +57,36 @@ const MovieDetails = ({ movie }) => {
           </li>
         ))}
       </Paper>
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMore />}>
+          <People />
+          <Typography variant="h5">Cast</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          {credits.cast.map((castMember) => (
+            <Typography key={castMember.credit_id}>
+              <Link to={`/person/${castMember.id}`}>{castMember.name}</Link>
+              {" - "}
+              {castMember.character}
+            </Typography>
+          ))}
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMore />}>
+          <People />
+          <Typography variant="h5">Crew</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          {credits.crew.map((crewMember) => (
+            <Typography key={crewMember.credit_id}>
+              <Link to={`/person/${crewMember.id}`}>{crewMember.name}</Link>
+              {" - "}
+              {crewMember.job}
+            </Typography>
+          ))}
+        </AccordionDetails>
+      </Accordion>
       <Paper component="ul" sx={styles.chipSet}>
         <Chip icon={<AccessTimeIcon />} label={`${movie.runtime} min.`} />
         <Chip
