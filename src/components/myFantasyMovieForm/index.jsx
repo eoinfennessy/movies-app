@@ -45,7 +45,7 @@ const MyFantasyMovieForm = () => {
 
   return (
     <Box component="div">
-      <Typography component="h2" variant="h3">
+      <Typography component="h2" variant="h4">
         Create a Fantasy Movie
       </Typography>
 
@@ -120,7 +120,7 @@ const MyFantasyMovieForm = () => {
             >
               {genres.map((genre) => {
                 return (
-                  <MenuItem key={genre.id} value={genre.id}>
+                  <MenuItem key={genre.id} value={genre.name}>
                     {genre.name}
                   </MenuItem>
                 );
@@ -198,7 +198,7 @@ const MyFantasyMovieForm = () => {
             >
               {productionCompanies.map((c) => {
                 return (
-                  <MenuItem key={c.id} value={c.id}>
+                  <MenuItem key={c.id} value={c.name}>
                     {c.name}
                   </MenuItem>
                 );
