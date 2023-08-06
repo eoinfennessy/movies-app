@@ -13,6 +13,7 @@ import Spinner from "../spinner";
 import { useForm, Controller } from "react-hook-form";
 import { MoviesContext } from "../../contexts/moviesContext";
 import { getGenres } from "../../api/tmdb-api";
+import productionCompanies from "./productionCompanies";
 
 const MyFantasyMovieForm = () => {
   const defaultValues = {
@@ -176,6 +177,38 @@ const MyFantasyMovieForm = () => {
         {errors.runtime && (
           <Typography variant="h6" component="p">
             {errors.runtime.message}
+          </Typography>
+        )}
+
+        <InputLabel id="production-company-label">
+          Production Company(s)
+        </InputLabel>
+        <Controller
+          name="productionCompanies"
+          control={control}
+          rules={{ required: "Production company is required" }}
+          defaultValue={[]}
+          render={({ field: { onChange, value } }) => (
+            <Select
+              labelId="production-company-label"
+              id="production-company-select"
+              value={value}
+              multiple
+              onChange={onChange}
+            >
+              {productionCompanies.map((c) => {
+                return (
+                  <MenuItem key={c.id} value={c.id}>
+                    {c.name}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          )}
+        />
+        {errors.productionCompanies && (
+          <Typography variant="h6" component="p">
+            {errors.productionCompanies.message}
           </Typography>
         )}
 
