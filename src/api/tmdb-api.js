@@ -118,11 +118,11 @@ export const getUpcomingMovies = () => {
     });
 };
 
-export const getTvShows = () => {
+export const getTvShows = (page) => {
   return fetch(
     `https://api.themoviedb.org/3/discover/tv?api_key=${
       import.meta.env.VITE_TMDB_KEY
-    }&language=en-US&include_adult=false&include_video=false&page=1`
+    }&language=en-US&include_adult=false&include_video=false&page=${page}`
   )
     .then((response) => {
       if (!response.ok) {

@@ -9,12 +9,12 @@ const styles = {
   },
 };
 
-function TvShowListPageTemplate({ tvShows, title }) {
+function TvShowListPageTemplate({ tvShows, title, changePage }) {
   return (
     <>
       <Grid container sx={styles.root}>
         <Grid item xs={12}>
-          <Header title={title} />
+          <Header title={title} changePage={changePage} />
         </Grid>
         <Grid item container spacing={5}>
           <TvShowList tvShows={tvShows} />
