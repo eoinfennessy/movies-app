@@ -41,17 +41,21 @@ export default function FilterMoviesCard(props) {
     genres.unshift({ id: "0", name: "All" });
   }
 
-  const handleUserImput = (e, type, value) => {
+  const handleUserInput = (e, type, value) => {
     e.preventDefault();
-    props.onUserInput(type, value); // NEW
+    props.onUserInput(type, value);
   };
 
   const handleTextChange = (e, props) => {
-    handleUserImput(e, "title", e.target.value);
+    handleUserInput(e, "title", e.target.value);
   };
 
   const handleGenreChange = (e) => {
-    handleUserImput(e, "genre", e.target.value);
+    handleUserInput(e, "genre", Number(e.target.value));
+  };
+
+  const handleVoteAverageChange = (e) => {
+    handleUserInput(e, "voteAverage", Number(e.target.value));
   };
 
   return (
@@ -88,6 +92,15 @@ export default function FilterMoviesCard(props) {
               })}
             </Select>
           </FormControl>
+          <TextField
+            sx={styles.formControl}
+            label="Minimum Average Vote Score"
+            id="vote-average-select"
+            type="number"
+            variant="filled"
+            value={props.voteAverageFilter}
+            onChange={handleVoteAverageChange}
+          />
         </CardContent>
       </Card>
       <Card sx={styles.root} variant="outlined">
