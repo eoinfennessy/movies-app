@@ -1,6 +1,3 @@
-import React from "react";
-import { Box } from "@mui/material";
-
 export default function PersonProfileImage({ person, borderRadius }) {
   return (
     <img

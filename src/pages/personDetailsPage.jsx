@@ -1,13 +1,12 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import PageTemplate from "../components/templateTvShowPage";
 import Spinner from "../components/spinner";
 import { getPerson } from "../api/tmdb-api";
-import TvShowDetails from "../components/tvShowDetails";
 import { Container, Paper, Grid, Box, Typography } from "@mui/material";
 import PersonProfileImage from "../components/personProfileImage";
 import PersonalInfo from "../components/personalInfo";
+import PersonCredits from "../components/personCredits";
 
 const PersonDetailsPage = () => {
   const { id } = useParams();
@@ -52,6 +51,7 @@ const PersonDetailsPage = () => {
                     <Typography variant="h5">Biography</Typography>
                     <Typography variant="body1">{person.biography}</Typography>
                   </Box>
+                  <PersonCredits person={person} />
                 </Paper>
               </Grid>
             </Grid>
