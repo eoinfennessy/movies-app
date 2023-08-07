@@ -22,6 +22,8 @@ function MovieListPageTemplate({ movies, title, action }) {
   const [titleFilter, setTitleFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState(0);
   const [voteAverageFilter, setVoteAverageFilter] = useState(0.0);
+  const [minReleaseDateFilter, setMinReleaseDateFilter] = useState(null);
+  const [maxReleaseDateFilter, setMaxReleaseDateFilter] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   let displayedMovies = movies
@@ -33,6 +35,14 @@ function MovieListPageTemplate({ movies, title, action }) {
     })
     .filter((m) => {
       return m.vote_average > voteAverageFilter;
+    })
+    .filter((m) => {
+      const releaseDate = new Date(m.release_date);
+      return minReleaseDateFilter ? releaseDate >= minReleaseDateFilter : true;
+    })
+    .filter((m) => {
+      const releaseDate = new Date(m.release_date);
+      return maxReleaseDateFilter ? releaseDate < maxReleaseDateFilter : true;
     });
 
   const handleChange = (type, value) => {
@@ -45,6 +55,12 @@ function MovieListPageTemplate({ movies, title, action }) {
         break;
       case "voteAverage":
         setVoteAverageFilter(value);
+        break;
+      case "minReleaseDate":
+        setMinReleaseDateFilter(value);
+        break;
+      case "maxReleaseDate":
+        setMaxReleaseDateFilter(value);
         break;
       default:
         console.error(`Filter type "${type}" has not been implemented.`);
@@ -80,6 +96,8 @@ function MovieListPageTemplate({ movies, title, action }) {
           titleFilter={titleFilter}
           genreFilter={genreFilter}
           voteAverageFilter={voteAverageFilter}
+          setMinReleaseDateFilter={setMinReleaseDateFilter}
+          setMaxReleaseDateFilter={setMaxReleaseDateFilter}
         />
       </Drawer>
     </>

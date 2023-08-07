@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import Spinner from "../spinner";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
@@ -27,6 +29,9 @@ const styles = {
 };
 
 export default function FilterMoviesCard(props) {
+  const [minDateDisplay, setMinDateDisplay] = useState(null);
+  const [maxDateDisplay, setMaxDateDisplay] = useState(null);
+
   const { data, error, isLoading, isError } = useQuery("genres", getGenres);
 
   if (isLoading) {
@@ -42,7 +47,7 @@ export default function FilterMoviesCard(props) {
   }
 
   const handleUserInput = (e, type, value) => {
-    e.preventDefault();
+    e?.preventDefault();
     props.onUserInput(type, value);
   };
 
@@ -56,6 +61,16 @@ export default function FilterMoviesCard(props) {
 
   const handleVoteAverageChange = (e) => {
     handleUserInput(e, "voteAverage", Number(e.target.value));
+  };
+
+  const handleMinReleaseDateChange = (date) => {
+    setMinDateDisplay(date);
+    handleUserInput(null, "minReleaseDate", date);
+  };
+
+  const handleMaxReleaseDateChange = (date) => {
+    setMaxDateDisplay(date);
+    handleUserInput(null, "maxReleaseDate", date);
   };
 
   return (
@@ -100,6 +115,24 @@ export default function FilterMoviesCard(props) {
             variant="filled"
             value={props.voteAverageFilter}
             onChange={handleVoteAverageChange}
+          />
+          <InputLabel id="min-release-date-picker-label">
+            Released After Date
+          </InputLabel>
+          <DatePicker
+            labelId="min-release-date-picker-label"
+            placeholderText="Select minimum release date"
+            onChange={handleMinReleaseDateChange}
+            selected={minDateDisplay}
+          />
+          <InputLabel id="max-release-date-picker-label">
+            Released Before Date
+          </InputLabel>
+          <DatePicker
+            labelId="max-release-date-picker-label"
+            placeholderText="Select max release date"
+            onChange={handleMaxReleaseDateChange}
+            selected={maxDateDisplay}
           />
         </CardContent>
       </Card>
