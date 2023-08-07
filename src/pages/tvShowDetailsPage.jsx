@@ -6,7 +6,7 @@ import Spinner from "../components/spinner";
 import { getTvShow } from "../api/tmdb-api";
 import TvShowDetails from "../components/tvShowDetails";
 
-const TvShowDetailsPage = (props) => {
+const TvShowDetailsPage = () => {
   const { id } = useParams();
 
   const {
@@ -33,7 +33,7 @@ const TvShowDetailsPage = (props) => {
           </PageTemplate>
         </>
       ) : (
-        <p>Waiting for movie details</p>
+        <p>Waiting for TV show details</p>
       )}
     </>
   );
