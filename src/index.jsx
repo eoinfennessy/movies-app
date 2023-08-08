@@ -18,6 +18,7 @@ import PersonDetailsPage from "./pages/personDetailsPage";
 import LoginPage from "./pages/loginPage";
 import AuthContextProvider from "./contexts/authContext";
 import PrivateRoute from "./components/privateRoute";
+import Logout from "./pages/logoutPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -33,9 +34,9 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <SiteHeader />
-        <MoviesContextProvider>
-          <AuthContextProvider>
+        <AuthContextProvider>
+          <SiteHeader />
+          <MoviesContextProvider>
             <Routes>
               <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
               <Route
@@ -57,11 +58,12 @@ const App = () => {
                 element={<MyFantasyMoviesPage />}
               />
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/logout" element={<Logout />} />
               <Route path="/" element={<HomePage />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
-          </AuthContextProvider>
-        </MoviesContextProvider>
+          </MoviesContextProvider>
+        </AuthContextProvider>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

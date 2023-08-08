@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -11,6 +11,7 @@ import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { AuthContext } from "../../contexts/authContext";
 
 const styles = {
   title: {
@@ -26,6 +27,7 @@ const SiteHeader = () => {
   const open = Boolean(anchorEl);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("lg"));
+  const context = useContext(AuthContext);
 
   const menuOptions = [
     { label: "Home", path: "/" },
@@ -33,8 +35,13 @@ const SiteHeader = () => {
     { label: "Favorites", path: "/movies/favourites" },
     { label: "TV Shows", path: "/tv-shows" },
     { label: "My Fantasy Movies", path: "/my-fantasy-movies" },
-    { label: "Login", path: "/login" },
   ];
+
+  if (context.isAuthenticated) {
+    menuOptions.push({ label: "Logout", path: "/logout" });
+  } else {
+    menuOptions.push({ label: "Login", path: "/login" });
+  }
 
   const handleMenuSelect = (pageURL) => {
     navigate(pageURL);
