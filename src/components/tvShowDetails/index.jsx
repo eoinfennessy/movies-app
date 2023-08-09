@@ -1,9 +1,7 @@
 import React from "react";
 import Chip from "@mui/material/Chip";
 import Paper from "@mui/material/Paper";
-import Tv from "@mui/icons-material/tv";
-import Book from "@mui/icons-material/Book";
-import StarRate from "@mui/icons-material/StarRate";
+import { Tv, Book, StarRate } from "@mui/icons-material";
 import Typography from "@mui/material/Typography";
 
 const styles = {
